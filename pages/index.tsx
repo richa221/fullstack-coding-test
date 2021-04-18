@@ -1,25 +1,46 @@
+import React, { useRef, useEffect } from "react";
 import Head from "next/head";
-import styles from "../styles/Home.module.css";
-import DynamicText from "../components/DynamicText";
+import styles from "styles/Home.module.css";
+import DynamicText from "components/DynamicText";
+import { Input, Box, Container } from "@chakra-ui/react";
+import withAuthentication from "hoc/withAuthentication";
+import Layout from 'components/Layout';
+
+interface DynamicTextInterface {
+  changeValue: (arg0: string) => void,
+  value: string
+}
 
 const Home = () => {
+
+  const dynamicTextRef = useRef<DynamicTextInterface>();
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    inputRef.current.value = dynamicTextRef.current.value;
+  })
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value);
+    dynamicTextRef.current.changeValue(e.target.value);
   };
 
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>Coding Test</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main className={styles.main}>
-        <DynamicText />
-        <input onChange={onChange} />
-      </main>
-    </div>
+    <Layout>
+      <div className={styles.container}>
+        <Head>
+          <title>Coding Test</title>
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+        <Container maxW="container.sm" mt="10">
+          <main className={styles.main}>
+            <Box mb={5}>
+              <DynamicText ref={dynamicTextRef} />
+            </Box>
+            <Input onChange={onChange} ref={inputRef} />
+          </main>
+        </Container>
+      </div>
+    </Layout>
   );
 };
 
-export default Home;
+export default withAuthentication(Home);
