@@ -75,23 +75,23 @@ const Blog = () => {
         getBlogs();
     }, [])
     return (
-            <Layout>
-                <Head>
-                    <title>Blogs</title>
-                    <link rel="icon" href="/favicon.ico" />
-                </Head>
-                <Container maxW="container.xl" mt="10">
-                    <SimpleGrid columns={[1, 4]} spacing="20px">
+        <Layout>
+            <Head>
+                <title>Blogs</title>
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
+            <Container maxW="container.xl" mt="10">
+                <SimpleGrid columns={[1, 4]} spacing="20px">
 
-                        {isLoading && [1, 2, 3].map(i => { return <Loader key={i} /> })}
-                        {
-                            !isLoading && blogList && blogList.map((doc: any) => {
-                                return <BlogCard key={doc.id} {...doc} />
-                            })
-                        }
-                    </SimpleGrid>
-                </Container>
-            </Layout>
+                    {isLoading && [1, 2, 3, 4].map(i => { return <Loader key={i} /> })}
+                    {
+                        !isLoading && blogList && blogList.map((doc: any) => {
+                            return <BlogCard key={doc.id} {...doc} />
+                        })
+                    }
+                </SimpleGrid>
+            </Container>
+        </Layout>
     );
 };
 
